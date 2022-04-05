@@ -104,4 +104,18 @@ class WishlistRepository extends EntityRepository implements WishlistRepositoryI
 
         return $qb->getQuery()->getResult();
     }
+
+    public function findAllByShopUserAndChannel(
+        ShopUserInterface $shopUser,
+        ChannelInterface $channel
+    ): array {
+        return $this->createQueryBuilder('o')
+            ->where('o.shopUser = :shopUser')
+            ->andWhere('o.channel = :channel')
+            ->setParameter('shopUser', $shopUser)
+            ->setParameter('channel', $channel)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 }

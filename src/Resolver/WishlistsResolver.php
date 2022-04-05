@@ -50,6 +50,10 @@ final class WishlistsResolver implements WishlistsResolverInterface
             $channel = null;
         }
 
+        if ($user instanceof ShopUserInterface && $channel instanceof ChannelInterface) {
+            return $this->wishlistRepository->findAllByShopUserAndChannel($user, $channel);
+        }
+
         if ($user instanceof ShopUserInterface) {
             return $this->wishlistRepository->findAllByShopUserAndToken($user->getId(), $wishlistCookieToken);
         }
